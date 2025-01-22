@@ -2,9 +2,10 @@
 
 namespace App\Auth;
 
+use App\Services\JwtService;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\UserProvider;
-use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Request;
 
 class JwtGuard implements Guard
@@ -18,7 +19,7 @@ class JwtGuard implements Guard
     {
         $this->request = $request;
         $this->provider = $provider;
-        $this->jwt = new Jwt();
+        $this->jwt = new JwtService();
     }
 
     public function user()

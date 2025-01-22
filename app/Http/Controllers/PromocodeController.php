@@ -41,7 +41,7 @@ class PromocodeController extends Controller
                 throw new Exception('Promocode "'.$promocode.'" not found!');
             }
 
-            $useCount = $this->promocodeService->getPromocodeUseCountOrFail($request->promocode, $request->user());
+            $useCount = $this->promocodeService->getPromocodeUseCountOrFail($promocode, $request->user());
 
             DB::beginTransaction();
 

@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Auth\Jwt;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
+use App\Services\JwtService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller {
 
-    public function __construct(protected Jwt $jwt)
+    public function __construct(protected JwtService $jwt)
     {
     }
 

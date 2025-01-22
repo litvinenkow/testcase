@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Auth;
+namespace App\Services;
 
+use App\Auth\JwtException;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Request;
 
-class Jwt
+class JwtService
 {
     protected $token = null;
     public string $storageKey = 'token';
