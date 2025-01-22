@@ -41,12 +41,12 @@ class PromocodeController extends Controller
                 throw new Exception('Promocode "'.$promocode.'" not found!');
             }
 
-            $useCount = $this->promocodeService->getPromocodeUseCountOrFail($promocode, $request->user());
-
             DB::beginTransaction();
 
-            $request->user->promocodes()->sync([$promocode->id => ['use_count' => $useCount]], false);
-            $balance = $request->incrementBalance($promocode->amount, 'attach promocode '.$promocode->promocode);
+            $useCount = $this->promocodeService->getPromocodeUseCountOrFail($promocode, $request->user());
+
+            $request->user()->promocodes()->sync([$promocode->id => ['use_count' => $useCount]], false);
+            $balance = $request->user()->incrementBalance($promocode->amount, 'attach promocode '.$promocode->promocode);
 
             DB::commit();
 
