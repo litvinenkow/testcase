@@ -6,23 +6,19 @@ trait HasBalanceTrait {
 
     public function balance()
     {
-        return $this->hasOne(Balance::class)->first();
+        return $this->hasOne(Balance::class)->firstOrCreate([
+            'user_id' => $this->id,
+            'currency' => 'RUB',
+            'amount' => 0,
+        ]);
     }
 
     public function incrementBalance($amount, $reason = '') {
         $userBalance = $this->balance();
-        if (!$userBalance) {
-            $userBalance = Balance::create([
-                'user_id' => $this->id,
-                'currency' => 'RUB',
-                'amount' => $amount,
-            ]);
-        } else {
-            $userBalance->increment('amount', $amount);
-        }
-        if ($reason) {
-            $userBalance->update(['last_action' => $reason]);
-        }
+        $userBalance->update([
+            'amount' => $amount,
+            'last_action' => $reason,
+        ]);
         return $userBalance;
     }
 }
